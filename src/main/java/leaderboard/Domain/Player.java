@@ -1,36 +1,54 @@
 package leaderboard.Domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import leaderboard.Domain.CreatePlayer.PlayerCreatedDomainEvent;
 import leaderboard.Types.Aggregate.AggregateRoot;
 
-import java.io.Serializable;
-
-public class Player extends AggregateRoot implements Serializable {
-    final private PlayerId id;
+public class Player extends AggregateRoot {
     final private String username;
     final private String name;
     final private String email;
 
-    public Player(PlayerId id, String username, String name, String email) {
-        this.id = id;
+    public Player(
+            @JsonProperty("username") String username,
+            @JsonProperty("name") String name,
+            @JsonProperty("email") String email) {
         this.username = username;
         this.name = name;
         this.email = email;
     }
 
-    public static Player create(PlayerId id, String username, String name, String email) {
-        Player player = new Player(id, username, name, email);
+    public static Player create(String username, String name, String email) throws JsonProcessingException {
+        Player player = new Player(username, name, email);
 
-        // TODO: data, needs to be structured, I guess
-        player.raise(new PlayerCreatedDomainEvent(id.toString(), Player.class.getSimpleName(), player.toString()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonPlayerString = objectMapper.writeValueAsString(player);
+
+        player.raise(new PlayerCreatedDomainEvent(
+                player.getUsername(),
+                Player.class.getSimpleName(),
+                jsonPlayerString));
 
         return player;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

@@ -4,6 +4,7 @@ import leaderboard.Types.EventStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,11 @@ final public class DomainEventPublisherMap implements DomainEventPublisher {
             Class domainEventType = domainEvent.getClass();
             if (domainEventSubscriberMap.containsKey(domainEventType)) {
                 domainEventSubscriberMap.get(domainEventType).stream().forEach(subscriber -> {
-                    subscriber.subscribe(domainEvent);
+                    try {
+                        subscriber.subscribe(domainEvent);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         }

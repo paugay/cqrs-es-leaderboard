@@ -1,7 +1,7 @@
 package leaderboard.Domain.AddGame;
 
-import leaderboard.Domain.Player;
-import leaderboard.Domain.PlayerId;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import leaderboard.Domain.Game;
 import leaderboard.Infrastructure.Bus.Command.Command;
 import leaderboard.Infrastructure.Bus.Command.Handler;
 import leaderboard.Infrastructure.Bus.Event.DomainEventPublisher;
@@ -9,21 +9,22 @@ import leaderboard.Infrastructure.Bus.Event.DomainEventPublisher;
 public class AddGameCommandHandler implements Handler {
     private DomainEventPublisher domainEventPublisher;
 
-    public CreatePlayerCommandHandler(DomainEventPublisher domainEventPublisher) {
+    public AddGameCommandHandler(DomainEventPublisher domainEventPublisher) {
         this.domainEventPublisher = domainEventPublisher;
     }
 
     @Override
-    public void handle(Command command) {
-        // TODO fix this
-        CreatePlayerCommand createPlayerCommand = (CreatePlayerCommand) command;
+    public void handle(Command command) throws JsonProcessingException {
+        // TODO fix this shit!
+        AddGameCommand addGameCommand = (AddGameCommand) command;
 
-        Player player = Player.create(
-                new PlayerId(createPlayerCommand.getId()),
-                createPlayerCommand.getUsername(),
-                createPlayerCommand.getName(),
-                createPlayerCommand.getEmail());
+        Game game = Game.create(
+                addGameCommand.getId(),
+                addGameCommand.getHomePlayerId(),
+                addGameCommand.getHomeScore(),
+                addGameCommand.getAwayPlayerId(),
+                addGameCommand.getAwayScore());
 
-        domainEventPublisher.publish(player.pullDomainEvents());
+        domainEventPublisher.publish(game.pullDomainEvents());
     }
 }

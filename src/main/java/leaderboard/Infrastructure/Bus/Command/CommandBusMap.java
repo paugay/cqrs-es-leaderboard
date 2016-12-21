@@ -1,5 +1,6 @@
 package leaderboard.Infrastructure.Bus.Command;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,11 @@ final public class CommandBusMap implements CommandBus {
         Class commandType = command.getClass();
         if (commandHandlerMap.containsKey(commandType)) {
             commandHandlerMap.get(commandType).stream().forEach(handler -> {
-                handler.handle(command);
+                try {
+                    handler.handle(command);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
             });
         }
     }
