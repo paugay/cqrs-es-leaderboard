@@ -107,14 +107,6 @@ CREATE TABLE IF NOT EXISTS eventstore (
     data            TEXT NOT NULL,
     occured_on      TIMESTAMP NOT NULL
 );
-
-DROP TABLE player;
-CREATE TABLE IF NOT EXISTS player (
-    id              VARCHAR(36) NOT NULL PRIMARY KEY,
-    username        VARCHAR(255) NOT NULL,
-    name            VARCHAR(255),
-    email           VARCHAR(255)
-);
 ```
     
 ### 2. Redis
