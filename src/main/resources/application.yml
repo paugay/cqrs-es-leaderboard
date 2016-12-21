@@ -1,0 +1,5 @@
+spring.datasource:
+    url: jdbc:postgresql://localhost:5432/eventstore
+    protocol: jdbc:postgresql
+    username: eventstore_admin
+    password: admin
