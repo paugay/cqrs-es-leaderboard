@@ -1,4 +1,4 @@
-package leaderboard.Infrastructure.Persistence.EventStore;
+package leaderboard.Infrastructure.Persistence;
 
 import leaderboard.Infrastructure.Bus.Event.DomainEvent;
 import leaderboard.Types.EventStore;
