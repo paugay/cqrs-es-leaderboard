@@ -158,3 +158,4 @@ playing with, a Todo List build with Event Sourcing
 in PHP, it contains some cool examples 
 - https://github.com/erikrozendaal/cqrs-lottery -- Very old implementation of a lottery system built with CQRS, pure 
 Java with some strong focus on performance, it's one of the few CQRS implementations I've seen with versioning
+
