@@ -27,7 +27,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.postgresql:postgresql:9.4.1212.jre7'
-    compile 'redis.clients:jedis:2.9.0'
+    compile 'redis.clients:jedis:3.2.0'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
