@@ -29,6 +29,6 @@ dependencies {
     compile 'org.postgresql:postgresql:42.2.18.jre7'
     compile 'redis.clients:jedis:3.3.0'
 
-    testCompile 'junit:junit:4.13.1'
+    testCompile 'junit:junit:4.13.2'
     testCompile 'org.mockito:mockito-core:3.6.0'
 }
